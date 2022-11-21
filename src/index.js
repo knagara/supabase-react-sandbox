@@ -17,7 +17,7 @@ import EditContact, { action as editAction } from "./routes/Edit";
 import { action as destroyAction } from "./routes/Destroy";
 
 import reportWebVitals from "./reportWebVitals";
-import MathPage from "./Math";
+import MathPage, { loader as mathLoader } from "./Math";
 
 const router = createBrowserRouter([
   {
@@ -59,6 +59,7 @@ const router = createBrowserRouter([
   {
     path: "math/",
     element: <MathPage />,
+    loader: mathLoader,
   },
 ]);
 
