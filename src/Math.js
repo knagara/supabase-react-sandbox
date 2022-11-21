@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { supabase } from "./supabaseClient";
 import { useLoaderData } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
@@ -14,6 +15,11 @@ export async function loader() {
 }
 
 export default function MathPage() {
+  const [userEditorText, setUserEditorText] = useState("");
+  const handleTextareaChange = (e) => {
+    setUserEditorText(e.target.value);
+  };
+
   const { maths } = useLoaderData();
 
   return (
@@ -26,6 +32,15 @@ export default function MathPage() {
         rehypePlugins={[rehypeKatex]}
         remarkPlugins={[remarkMath]}
       ></ReactMarkdown>
+      <h2>数式エディタ</h2>
+      <ReactMarkdown
+        children={userEditorText}
+        rehypePlugins={[rehypeKatex]}
+        remarkPlugins={[remarkMath]}
+      ></ReactMarkdown>
+      <form>
+        <textarea value={userEditorText} onChange={handleTextareaChange} />
+      </form>
       <h2>Data from supabase</h2>
       <div>
         {maths.length ? (
